@@ -1,11 +1,11 @@
 XXXX - star count to win in hex
 YYYY - coin count to win in hex
 to turn one of these off, set the value to 0000
+turning both off will default to 5 stars to win
 
-$Mp6 Star/Coin Goal Mode
+$Mp6 Star/Coin Goal Mode [US - Gecko]
 022BF70C 0000XXXX
 022BF70E 0000YYYY
-
 C21EFC2C 00000036
 9421FFD8 93E10024
 7C3F0B78 907F0018

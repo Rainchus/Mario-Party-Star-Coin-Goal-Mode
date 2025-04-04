@@ -3,10 +3,9 @@ YYYY - coin count to win in hex
 to turn one of these off, set the value to 0000
 turning both off will default to 5 stars to win
 
-$Mp3 Star/Coin Goal Mode [US]
+$Mp3 Star/Coin Goal Mode [US - Gameshark]
 810988BC XXXX
 810988BE YYYY
-
 D10F9334 03E0
 810F9334 0802
 D10F9336 0008
@@ -89,4 +88,3 @@ D10F9336 0008
 8109F496 0008
 8109F498 A082
 8109F49A 0003
-
