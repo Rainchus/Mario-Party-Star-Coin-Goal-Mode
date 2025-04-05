@@ -43,30 +43,39 @@
 
 #define ASM_DATA_s16(data_var, data_array) _ASM_DATA(data_var, data_array, __COUNTER__)
 
-//8021e0f0
-//manually change the `blr` at the end of this function to `li r25, 0`
+u32 frandmod(u32 arg0);
+extern s32 lbl_802F2F3C;
+extern s32 lbl_802F39F0;
+
+//80178d10
 void minigameListLoadHook(s32 minigameType, s32 arg1) {
     s32 i;
-    s16 starCount = *(s16*)0x802F220C;
-    s16 coinCount = *(s16*)0x802F220E;
+    s8* capsuleIDs;
 
-    //if both of these are 0, player didn't initialize the values. Auto set to 5 stars, 0 coins to win
-    if (starCount == 0 && coinCount == 0) {
-        *(s16*)0x802F220C = 5;
-        starCount = *(s16*)0x802F220C;
+    //-1 for pinkBooBandit
+
+    //__ (used to only set this data for spaces once)
+    if (_CheckFlag(0x10001) != 0) {
+        return;
     }
- 
-    for (i = 0; i < 4; i++) {
-        //if any of the players meets the star and coin requirement at end of current turn, end game
-        if (GwPlayer[i].star >= starCount && GwPlayer[i].coin >= coinCount) {
-            GwSystem.turnNo = GwSystem.turnMax + 1;
-            return;
+
+    ASM_DATA(capsuleIDs, "0, 1, 2, 3, 10, 11, 12, 13, 14, 15, -1, 20, 21, 22, 23, 24, 25, 28");
+
+    for (i = 0; i < ARRAY_COUNT(GwSystem.spaces); i++) {
+        s8 randCapsule = capsuleIDs[frandmod(18)];
+        //replace pink boo with bandit on windmillville
+        if (randCapsule == -1) {
+            if (lbl_802F2F3C == 0x7E) {
+                randCapsule = 16; //bandit
+            } else {
+                randCapsule = 17; //pink boo
+            }
+            GwSystem.spaces[i].owner = -1;
+        } else if (randCapsule == 28) { //koopa kid
+            GwSystem.spaces[i].owner = 8; //set owner as koopa kid
+        } else {
+            GwSystem.spaces[i].owner = -1;
         }
+        GwSystem.spaces[i].capsuleID = randCapsule;
     }
-    //go back one turn to prevent game from ending
-    if (GwSystem.turnNo == GwSystem.turnMax) {
-        GwSystem.turnNo = GwSystem.turnMax - 1;
-    }
-    
-    return;
 }

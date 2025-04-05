@@ -34,12 +34,18 @@ typedef struct GwPlayer_s {
 /* 0x3A */ char unk_3A[0x1E6];
 } GWPLAYER; //sizeof 0x220
 
-typedef struct GwSystem_s {
-/* 0x00 */ char unk_00[4];
-/* 0x04 */ u8 turnNo;
-/* 0x05 */ u8 turnMax;
-} GWSYSTEM;
+typedef struct Space {
+/* 0x00 */ s8 owner;
+/* 0x01 */ s8 capsuleID;
+} Space;
 
-extern GWSYSTEM GwSystem;
+typedef struct GW_SYSTEM {
+/* 0x00 */ char unk_00[0x46];
+/* 0x46 */ Space spaces[256];
+} GW_SYSTEM;
+
+extern GW_SYSTEM GwSystem;
+
+#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 
 extern GWPLAYER GwPlayer[GW_PLAYER_MAX];
