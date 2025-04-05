@@ -74,3 +74,4 @@
 .definelabel GWSystem, 0x800CD058
 .definelabel starAmountToEndGame, 0x800988BC
 .definelabel coinAmountToEndGame, 0x800988BE
+.definelabel ContBtn, 0x800CDA7C

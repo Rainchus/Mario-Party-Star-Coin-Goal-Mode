@@ -44,3 +44,4 @@
 
 .definelabel starAmountToEndGame, 0x800C0720
 .definelabel coinAmountToEndGame, 0x800C0722
+.definelabel ContBtn, 0x800EDEB4
